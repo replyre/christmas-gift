@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MERRY CHRISTMAS</title>
+    <style>
+      body {
+        height: 90vh;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .container {
+        height: 500px;
+        width: 500px;
+
+        border-radius: 50%;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .img1 {
+        position: relative;
+        height: 120px;
+        transition: all 5s ease;
+        z-index: 2;
+      }
+      .img2 {
+        position: relative;
+        height: 180px;
+        z-index: 2;
+      }
+      .img3 {
+        position: absolute;
+        left: 20%;
+        top: -15%;
+        height: 200px;
+        z-index: 1;
+        transition: all 5s ease;
+      }
+      .bottom {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .top {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+      }
+      .shake {
+        animation: shake 0.5s infinite ease-in-out;
+      }
+      .img0 {
+        height: 200px;
+        margin-top: 200px;
+        position: absolute;
+        left: 300px;
+      }
+      .img4 {
+        display: none;
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+      }
+      .img5 {
+        position: absolute;
+        height: 200px;
+        top: 10px;
+        right: 100px;
+        display: none;
+      }
+      .img6 {
+        position: absolute;
+        height: 300px;
+        top: 10px;
+        left: 100px;
+        display: none;
+      }
+      .img7 {
+        position: absolute;
+        bottom: 50px;
+        right: 50px;
+        height: 300px;
+        display: none;
+      }
+      @keyframes shake {
+        0% {
+          transform: translate(0, 0);
+        }
+        10% {
+          transform: translate(-5px, 3px);
+        }
+        20% {
+          transform: translate(3px, -8px);
+        }
+        30% {
+          transform: translate(-6px, -3px);
+        }
+        40% {
+          transform: translate(3px, 6px);
+        }
+        50% {
+          transform: translate(-9px, 2px);
+        }
+        60% {
+          transform: translate(2px, -1px);
+        }
+        70% {
+          transform: translate(-2px, -2px);
+        }
+        80% {
+          transform: translate(6px, 2px);
+        }
+        90% {
+          transform: translate(-1px, 2px);
+        }
+        100% {
+          transform: translate(0, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <img src="clickhere.jpg" alt="" class="img0" />
+    <img src="img10.gif" alt="" class="img4" />
+    <img src="jingle.gif" alt="" class="img5" />
+    <img src="MC.gif" alt="" class="img6" />
+    <img src="snowman.gif" alt="" class="img7" />
+    <div class="container">
+      <div class="top">
+        <img src="gift1.png" alt="" class="img1 shake" />
+      </div>
+      <div class="bottom">
+        <img src="gift2.png" alt="" class="img2 shake" />
+        <img src="santa.png" alt="" class="img3" />
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <script>
+      let shakeAudio = new Audio("shake.mp3");
+      let jingleAudio = new Audio("jingle.mp3");
+      let hohoAudio = new Audio("hoho.mp3");
+
+      shakeAudio.autoplay = true;
+      shakeAudio.loop = false;
+
+      let shakeInterval;
+      shakeAudio.addEventListener("play", () => {
+        shakeInterval = setInterval(() => {
+          if (shakeAudio.currentTime >= 2) {
+            shakeAudio.currentTime = 0;
+            shakeAudio.play();
+          }
+        }, 100);
+      });
+
+      document.querySelector(".container").addEventListener("click", () => {
+        shakeAudio.pause();
+        shakeAudio.currentTime = 0;
+        clearInterval(shakeInterval);
+
+        document.querySelector(".img0").style.display = "none";
+        document.querySelector(".img4").style.display = "block";
+        document.querySelector(".img5").style.display = "block";
+        document.querySelector(".img6").style.display = "block";
+        document.querySelector(".img7").style.display = "block";
+        jingleAudio.play();
+        hohoAudio.play();
+        document.querySelector(".img1").classList.remove("shake");
+
+        document.querySelector(".img2").classList.remove("shake");
+
+        setTimeout(() => {
+          document.querySelector(".img1").style.transform =
+            "rotate3d(1, 0, 0, 80deg)";
+        }, 0);
+        setTimeout(() => {
+          document.querySelector(".img1").style.opacity = "0";
+        }, 300);
+        setTimeout(() => {
+          document.querySelector(".img3").style.transform =
+            "translate(-20px,-100px) scale(1.5)";
+        }, 2000);
+
+        //confetti
+        const count = 1000,
+          defaults = {
+            origin: { y: 0.7 },
+          };
+
+        function fire(particleRatio, opts) {
+          confetti(
+            Object.assign({}, defaults, opts, {
+              particleCount: Math.floor(count * particleRatio),
+            })
+          );
+        }
+
+        fire(0.25, {
+          spread: 26,
+          startVelocity: 55,
+        });
+
+        fire(0.2, {
+          spread: 60,
+        });
+
+        fire(0.35, {
+          spread: 100,
+          decay: 0.91,
+          scalar: 0.8,
+        });
+
+        fire(0.1, {
+          spread: 120,
+          startVelocity: 25,
+          decay: 0.92,
+          scalar: 1.2,
+        });
+
+        fire(0.1, {
+          spread: 120,
+          startVelocity: 45,
+        });
+        const end = Date.now() + 15 * 1000;
+
+        // go Buckeyes!
+        const colors = ["#bb0000", "#ffffff"];
+
+        (function frame() {
+          confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors,
+          });
+
+          confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors,
+          });
+
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        })();
+      });
+    </script>
+  </body>
+</html>
